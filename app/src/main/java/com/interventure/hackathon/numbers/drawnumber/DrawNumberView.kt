@@ -127,7 +127,7 @@ class DrawNumberView(context: Context?, attrs: AttributeSet?) : View(context, at
     private fun touchStart(x: Float, y: Float) {
         val dx = abs(x - mX)
         val dy = abs(y - mY)
-        if ((mX == 0f && mY == 0f) || dx  <=  14f || dy <= 14f){
+        if ((mX == 0f && mY == 0f) || (dx <=  90f && dy <= 90f)){
                 if (region?.contains(x.toInt(), y.toInt()) == true) {
                     drawingStarted = true
                     mPath = Path()
