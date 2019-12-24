@@ -11,7 +11,6 @@ import androidx.annotation.ColorInt
 import com.interventure.hackathon.numbers.drawnumber.DrawNumberActivity
 import kotlinx.android.synthetic.main.number_details_fragment.*
 
-
 class NumberDetailsFragment(val number: CharSequence, @ColorInt val color: Int) : Fragment() {
 
     companion object {
@@ -36,6 +35,7 @@ class NumberDetailsFragment(val number: CharSequence, @ColorInt val color: Int) 
         numberText.setTextColor(color)
         numberTextCardView.setOnClickListener {
             val intent = Intent(activity, DrawNumberActivity::class.java)
+            intent.putExtra(DrawNumberActivity.NUMBER, number.toString().toInt())
             startActivity(intent)
         }
     }

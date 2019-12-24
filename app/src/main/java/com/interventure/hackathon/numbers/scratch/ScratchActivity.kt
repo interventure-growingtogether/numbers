@@ -29,7 +29,8 @@ class ScratchActivity : AppCompatActivity() {
         windowManager.defaultDisplay.getMetrics(displayMetrics)
         val width = displayMetrics.widthPixels
 
-        setupGrid(9, width)
+        val num = intent?.getIntExtra(NUMBER, -1) ?: -1
+        setupGrid(num, width)
     }
 
     private fun setupGrid(number: Int, width: Int) {
@@ -64,5 +65,9 @@ class ScratchActivity : AppCompatActivity() {
         val params = LinearLayout.LayoutParams(width, width)
         imageView.layoutParams = params
         return imageView
+    }
+
+    companion object {
+        const val NUMBER = "number"
     }
 }
