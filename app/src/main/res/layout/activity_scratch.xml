@@ -4,16 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@android:color/white">
 
-    <TextView
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/present_grid"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="4"
-        android:textColor="@android:color/black"
-        android:textSize="400sp"
-        android:textAlignment="center"
-        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:padding="4dp"
+
+        app:alignmentMode="alignBounds"
+        app:rowOrderPreserved="false"
+        app:useDefaultMargins="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
