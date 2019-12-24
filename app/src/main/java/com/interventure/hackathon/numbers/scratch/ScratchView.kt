@@ -3,11 +3,13 @@ package com.interventure.hackathon.numbers.scratch
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
+import android.media.MediaPlayer
 import android.util.AttributeSet
 import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.View
 import com.interventure.hackathon.numbers.FingerPath
+import com.interventure.hackathon.numbers.R
 import kotlin.math.abs
 
 class ScratchView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
@@ -25,6 +27,7 @@ class ScratchView(context: Context?, attrs: AttributeSet?) : View(context, attrs
     private var mCanvas: Canvas? = null
     private val mBitmapPaint: Paint = Paint(Paint.DITHER_FLAG)
     private val porterDuffXfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
+    private val scratchSound =  MediaPlayer.create(context, R.raw.scratch)
 
     constructor(context: Context?) : this(context, null)
 
@@ -63,14 +66,17 @@ class ScratchView(context: Context?, attrs: AttributeSet?) : View(context, attrs
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 touchStart(x, y)
+                scratchSound.start()
                 invalidate()
             }
             MotionEvent.ACTION_MOVE -> {
                 touchMove(x, y)
+                scratchSound.start()
                 invalidate()
             }
             MotionEvent.ACTION_UP -> {
                 touchUp()
+                scratchSound.pause()
                 invalidate()
             }
         }
