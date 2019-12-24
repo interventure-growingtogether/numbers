@@ -122,7 +122,7 @@ class DrawNumberView(context: Context?, attrs: AttributeSet?) : View(context, at
     }
 
     private fun touchStart(x: Float, y: Float) {
-        if(region?.contains(x.toInt(),y.toInt()) == true) {
+        if (region?.contains(x.toInt(), y.toInt()) == true) {
             mPath = Path()
             mPath?.let { path ->
                 val fp = FingerPath(currentColor, emboss, blur, strokeWidth, path)
@@ -138,7 +138,11 @@ class DrawNumberView(context: Context?, attrs: AttributeSet?) : View(context, at
     private fun touchMove(x: Float, y: Float) {
         val dx = abs(x - mX)
         val dy = abs(y - mY)
-        if ((dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE)&& region?.contains(x.toInt(),y.toInt()) == true) {
+        if ((dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) && region?.contains(
+                x.toInt(),
+                y.toInt()
+            ) == true
+        ) {
             mPath?.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2)
             mX = x
             mY = y
@@ -154,8 +158,23 @@ class DrawNumberView(context: Context?, attrs: AttributeSet?) : View(context, at
         val paint = Paint(ANTI_ALIAS_FLAG)
         paint.color = Color.RED
         paint.textSize = 1000f
-        val n = number.toString()
-        paint.getTextPath(n, 0, n.length, width / 2f - paint.textSize / 3, height / 2f, textPath)
+        val textNumber = number.toString()
+
+        // center number
+        val bounds = Rect()
+        paint.getTextBounds(textNumber, 0, textNumber.length, bounds)
+        val x: Int = width / 2 - bounds.width() / 2
+        val y: Int = height / 2 - bounds.height() / 2
+
+        // get number path
+        paint.getTextPath(
+            textNumber,
+            0,
+            textNumber.length,
+            x.toFloat(),
+            y.toFloat() + paint.textSize / 2,
+            textPath
+        )
         textPath.close()
 
         val rectF = RectF()
