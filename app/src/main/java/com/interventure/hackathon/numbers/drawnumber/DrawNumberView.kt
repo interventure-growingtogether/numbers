@@ -29,6 +29,7 @@ class DrawNumberView(context: Context?, attrs: AttributeSet?) : View(context, at
     private var number: Int = 0
     private var numberPath: Path? = null
     private var region: Region? = null
+    private var drawingStarted = false
 
     constructor(context: Context?) : this(context, null)
 
@@ -116,29 +117,36 @@ class DrawNumberView(context: Context?, attrs: AttributeSet?) : View(context, at
 
     fun clear() {
         bgColor = DEFAULT_BG_COLOR
+        mX = 0.0f
+        mY = 0.0f
         paths.clear()
         normal()
         invalidate()
     }
 
     private fun touchStart(x: Float, y: Float) {
-        if (region?.contains(x.toInt(), y.toInt()) == true) {
-            mPath = Path()
-            mPath?.let { path ->
-                val fp = FingerPath(currentColor, emboss, blur, strokeWidth, path)
-                paths.add(fp)
-                mPath?.reset()
-                mPath?.moveTo(x, y)
+        val dx = abs(x - mX)
+        val dy = abs(y - mY)
+        if ((mX == 0f && mY == 0f) || dx  <=  14f || dy <= 14f){
+                if (region?.contains(x.toInt(), y.toInt()) == true) {
+                    drawingStarted = true
+                    mPath = Path()
+                    mPath?.let { path ->
+                        val fp = FingerPath(currentColor, emboss, blur, strokeWidth, path)
+                        paths.add(fp)
+                        mPath?.reset()
+                        mPath?.moveTo(x, y)
+                    }
+                    mX = x
+                    mY = y
+                }
             }
-            mX = x
-            mY = y
-        }
     }
 
     private fun touchMove(x: Float, y: Float) {
         val dx = abs(x - mX)
         val dy = abs(y - mY)
-        if ((dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) && region?.contains(
+        if (drawingStarted && (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) && region?.contains(
                 x.toInt(),
                 y.toInt()
             ) == true
@@ -151,6 +159,7 @@ class DrawNumberView(context: Context?, attrs: AttributeSet?) : View(context, at
 
     private fun touchUp() {
         mPath?.lineTo(mX, mY)
+        drawingStarted = false
     }
 
     private fun getDefPathForNumber(): Path {
