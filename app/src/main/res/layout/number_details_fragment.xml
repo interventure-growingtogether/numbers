@@ -31,7 +31,7 @@
             android:layout_height="match_parent" />
     </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
-        android:id="@+id/hello2"
+        android:id="@+id/ogrebiCardView"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent"
