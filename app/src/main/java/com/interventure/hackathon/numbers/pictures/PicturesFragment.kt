@@ -50,7 +50,7 @@ class PicturesFragment : Fragment() {
                     counter++
                     if (counter == number) {
                         rootView.findViewById<ImageView>(R.id.image)?.visibility = View.VISIBLE
-                        it.alpha = 0.2f
+                        it.visibility = View.INVISIBLE
                     }
                 }
             }
