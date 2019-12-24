@@ -10,6 +10,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment, PicturesFragment.newInstance(9)).commitAllowingStateLoss()
+            .replace(R.id.fragment_container, PicturesFragment.newInstance(3)).commitAllowingStateLoss()
     }
 }

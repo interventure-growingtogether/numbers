@@ -7,8 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.view.iterator
-import kotlinx.android.synthetic.main.activity_main.*
 
 import kotlinx.android.synthetic.main.grid_fragment.*
 
