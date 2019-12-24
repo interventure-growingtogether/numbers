@@ -14,6 +14,7 @@
         android:scaleType="centerCrop"/>
 
     <LinearLayout
+        android:id="@+id/nikola_group"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:orientation="horizontal"
@@ -46,9 +47,15 @@
 
     </LinearLayout>
     <androidx.cardview.widget.CardView
+        android:layout_below="@id/nikola_group"
         android:id="@+id/starCardView"
         android:layout_width="match_parent"
         android:layout_height="120dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/background_image_for_stars"
+            android:scaleType="centerCrop"/>
 
     </androidx.cardview.widget.CardView>
 

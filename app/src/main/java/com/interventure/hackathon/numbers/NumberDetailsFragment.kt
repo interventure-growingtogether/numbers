@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import com.interventure.hackathon.numbers.drawnumber.DrawNumberActivity
+import com.interventure.hackathon.numbers.pictures.PicturesFragment
 import com.interventure.hackathon.numbers.scratch.ScratchActivity
 import kotlinx.android.synthetic.main.number_details_fragment.*
 
@@ -43,6 +44,11 @@ class NumberDetailsFragment(val number: CharSequence, @ColorInt val color: Int) 
             val intent = Intent(activity, ScratchActivity::class.java)
             intent.putExtra(DrawNumberActivity.NUMBER, number.toString().toInt())
             startActivity(intent)
+        }
+        starCardView.setOnClickListener {
+            val fragment = PicturesFragment.newInstance(number.toString().toInt())
+            fragmentManager?.beginTransaction()?.replace(R.id.fragment_container, fragment)
+                ?.addToBackStack(null)?.commitAllowingStateLoss()
         }
     }
 
