@@ -1,5 +1,6 @@
 package com.interventure.hackathon.numbers.pictures
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -47,10 +48,12 @@ class PicturesFragment : Fragment() {
                 childView?.setOnClickListener { view ->
                     (view as? ImageView)?.setImageResource(R.drawable.ic_star_clicked)
                     view?.isEnabled = false
+                    val clickSound = MediaPlayer.create(context, R.raw.click)
+                    clickSound.start()
                     counter++
                     if (counter == number) {
                         rootView.findViewById<ImageView>(R.id.image)?.visibility = View.VISIBLE
-                        it.alpha = 0.2f
+                        it.visibility = View.INVISIBLE
                     }
                 }
             }

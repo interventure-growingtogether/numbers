@@ -49,7 +49,12 @@ class ScratchActivity : AppCompatActivity() {
             else -> width
         }
         for (i in 0 until number) {
-            gridLayout?.addView(getImageView(imageWidth))
+            val imageView = getImageView(imageWidth)
+            gridLayout?.addView(imageView)
+            val params =
+                GridLayout.LayoutParams(imageView.layoutParams)
+            params.setGravity(Gravity.CENTER)
+            imageView.layoutParams = params
         }
     }
 
@@ -57,7 +62,6 @@ class ScratchActivity : AppCompatActivity() {
         val imageView = ImageView(this)
         imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_present))
         val params = LinearLayout.LayoutParams(width, width)
-        params.gravity = Gravity.CENTER
         imageView.layoutParams = params
         return imageView
     }

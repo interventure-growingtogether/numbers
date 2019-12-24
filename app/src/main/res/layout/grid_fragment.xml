@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NumbersGridFragment">
+    tools:context=".NumbersGridFragment"
+    android:background="#55f4ce46">
 
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/choice_grid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        android:padding="4dp"
-
         app:alignmentMode="alignBounds"
         app:columnCount="3"
         app:rowOrderPreserved="false"
