@@ -199,8 +199,7 @@ class DrawNumberView(context: Context?, attrs: AttributeSet?) : View(context, at
     }
 
     companion object {
-        var BRUSH_SIZE = 140
-        const val DEFAULT_COLOR: Int = Color.RED
+        var BRUSH_SIZE = 200
         const val DEFAULT_BG_COLOR: Int = Color.WHITE
         private const val TOUCH_TOLERANCE = 4f
     }
