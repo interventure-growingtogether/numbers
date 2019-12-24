@@ -34,9 +34,17 @@
         <androidx.appcompat.widget.AppCompatTextView
             style="@style/numberText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="World"/>
+            android:layout_height="match_parent"
+            android:background="@color/silver"
+            android:text="Ogrebi"/>
     </androidx.cardview.widget.CardView>
+
     </LinearLayout>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/starCardView"
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>
