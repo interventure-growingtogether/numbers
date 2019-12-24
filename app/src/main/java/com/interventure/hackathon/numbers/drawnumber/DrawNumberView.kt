@@ -8,7 +8,9 @@ import android.util.AttributeSet
 import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.View
+import androidx.core.content.ContextCompat
 import com.interventure.hackathon.numbers.FingerPath
+import com.interventure.hackathon.numbers.R
 import kotlin.math.abs
 
 class DrawNumberView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
@@ -36,7 +38,7 @@ class DrawNumberView(context: Context?, attrs: AttributeSet?) : View(context, at
     init {
         mBorderPaint.isAntiAlias = true
         mBorderPaint.isDither = true
-        mBorderPaint.color = DEFAULT_COLOR
+        mBorderPaint.color = ContextCompat.getColor(context!!, R.color.colorPrimary)
         mBorderPaint.style = Paint.Style.STROKE
         mBorderPaint.strokeJoin = Paint.Join.ROUND
         mBorderPaint.strokeCap = Paint.Cap.ROUND
@@ -46,7 +48,6 @@ class DrawNumberView(context: Context?, attrs: AttributeSet?) : View(context, at
 
         mPaint.isAntiAlias = true
         mPaint.isDither = true
-        mPaint.color = DEFAULT_COLOR
         mPaint.style = Paint.Style.STROKE
         mPaint.strokeJoin = Paint.Join.ROUND
         mPaint.strokeCap = Paint.Cap.ROUND

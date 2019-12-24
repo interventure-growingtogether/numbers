@@ -19,7 +19,8 @@ class DrawNumberActivity : AppCompatActivity() {
         val metrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(metrics)
         val num = intent?.getIntExtra(NUMBER, -1) ?: -1
-        drawNumberView?.init(metrics, num, Color.GREEN)
+        val color = intent?.getIntExtra(COLOR, -1) ?: -1
+        drawNumberView?.init(metrics, num, color)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -52,5 +53,6 @@ class DrawNumberActivity : AppCompatActivity() {
 
     companion object {
         const val NUMBER = "number"
+        const val COLOR = "color"
     }
 }

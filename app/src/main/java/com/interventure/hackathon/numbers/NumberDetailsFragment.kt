@@ -12,7 +12,7 @@ import com.interventure.hackathon.numbers.drawnumber.DrawNumberActivity
 import com.interventure.hackathon.numbers.scratch.ScratchActivity
 import kotlinx.android.synthetic.main.number_details_fragment.*
 
-class NumberDetailsFragment(val number: CharSequence, @ColorInt val color: Int) : Fragment() {
+class NumberDetailsFragment(private val number: CharSequence, @ColorInt val color: Int) : Fragment() {
 
     companion object {
         fun newInstance(number: CharSequence, @ColorInt color: Int) = NumberDetailsFragment(number, color)
@@ -37,6 +37,7 @@ class NumberDetailsFragment(val number: CharSequence, @ColorInt val color: Int) 
         numberTextCardView.setOnClickListener {
             val intent = Intent(activity, DrawNumberActivity::class.java)
             intent.putExtra(DrawNumberActivity.NUMBER, number.toString().toInt())
+            intent.putExtra(DrawNumberActivity.COLOR, color)
             startActivity(intent)
         }
         ogrebiCardView.setOnClickListener {
