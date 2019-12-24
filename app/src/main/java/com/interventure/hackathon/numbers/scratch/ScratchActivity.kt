@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.gridlayout.widget.GridLayout
 import com.interventure.hackathon.numbers.R
-import com.interventure.hackathon.numbers.drawnumber.DrawNumberActivity
 
 class ScratchActivity : AppCompatActivity() {
 
@@ -30,7 +29,7 @@ class ScratchActivity : AppCompatActivity() {
         windowManager.defaultDisplay.getMetrics(displayMetrics)
         val width = displayMetrics.widthPixels
 
-        val num = intent?.getIntExtra(DrawNumberActivity.NUMBER, -1) ?: -1
+        val num = intent?.getIntExtra(NUMBER, -1) ?: -1
         setupGrid(num, width)
     }
 
