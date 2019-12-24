@@ -38,7 +38,7 @@ class DrawNumberView(context: Context?, attrs: AttributeSet?) : View(context, at
     init {
         mBorderPaint.isAntiAlias = true
         mBorderPaint.isDither = true
-        mBorderPaint.color = ContextCompat.getColor(context!!, R.color.colorPrimary)
+        mBorderPaint.color = ContextCompat.getColor(context!!, R.color.colorPrimaryDark)
         mBorderPaint.style = Paint.Style.STROKE
         mBorderPaint.strokeJoin = Paint.Join.ROUND
         mBorderPaint.strokeCap = Paint.Cap.ROUND
