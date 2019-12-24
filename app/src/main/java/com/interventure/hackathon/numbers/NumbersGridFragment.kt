@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.view.iterator
+import kotlinx.android.synthetic.main.activity_main.*
 
 import kotlinx.android.synthetic.main.grid_fragment.*
 
@@ -36,6 +38,16 @@ class NumbersGridFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
+        val textView = v as? TextView
+        val number = textView?.text
+        val color = textView?.currentTextColor
+        if (number != null && color != null) {
+            val fragment = NumberDetailsFragment.newInstance(number, color)
+            val transaction = activity?.supportFragmentManager?.beginTransaction()
+            transaction?.replace(R.id.fragment_container, fragment)
+            transaction?.addToBackStack(null)
+            transaction?.commitAllowingStateLoss()
+        }
 
     }
 
