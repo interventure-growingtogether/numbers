@@ -58,6 +58,7 @@ class ScratchView(context: Context?, attrs: AttributeSet?) : View(context, attrs
         canvas?.restore()
     }
 
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         val x = event?.x
@@ -66,6 +67,7 @@ class ScratchView(context: Context?, attrs: AttributeSet?) : View(context, attrs
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 touchStart(x, y)
+                scratchSound.seekTo(5000)
                 scratchSound.start()
                 invalidate()
             }
