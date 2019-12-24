@@ -1,8 +1,9 @@
-package com.interventure.hackathon.numbers.scratch
+package com.interventure.hackathon.numbers.drawnumber
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
+import android.graphics.Paint.ANTI_ALIAS_FLAG
 import android.util.AttributeSet
 import android.util.DisplayMetrics
 import android.view.MotionEvent
@@ -10,11 +11,12 @@ import android.view.View
 import com.interventure.hackathon.numbers.FingerPath
 import kotlin.math.abs
 
-class ScratchView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
+class DrawNumberView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
     private var mX = 0f
     private var mY = 0f
     private var mPath: Path? = null
     private val mPaint: Paint = Paint()
+    private val mBorderPaint: Paint = Paint()
     private val paths: ArrayList<FingerPath> = ArrayList()
     private var currentColor = 0
     private var bgColor = DEFAULT_BG_COLOR
@@ -24,11 +26,23 @@ class ScratchView(context: Context?, attrs: AttributeSet?) : View(context, attrs
     private var mBitmap: Bitmap? = null
     private var mCanvas: Canvas? = null
     private val mBitmapPaint: Paint = Paint(Paint.DITHER_FLAG)
-    private val porterDuffXfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
+    private var number: Int = 0
+    private var numberPath: Path? = null
+    private var region: Region? = null
 
     constructor(context: Context?) : this(context, null)
 
     init {
+        mBorderPaint.isAntiAlias = true
+        mBorderPaint.isDither = true
+        mBorderPaint.color = DEFAULT_COLOR
+        mBorderPaint.style = Paint.Style.STROKE
+        mBorderPaint.strokeJoin = Paint.Join.ROUND
+        mBorderPaint.strokeCap = Paint.Cap.ROUND
+        mBorderPaint.strokeWidth = 10f
+        mBorderPaint.xfermode = null
+        mBorderPaint.alpha = 0xff
+
         mPaint.isAntiAlias = true
         mPaint.isDither = true
         mPaint.color = DEFAULT_COLOR
@@ -42,11 +56,17 @@ class ScratchView(context: Context?, attrs: AttributeSet?) : View(context, attrs
     override fun onDraw(canvas: Canvas?) {
         canvas?.save()
         mCanvas?.drawColor(bgColor)
+        if (numberPath == null) {
+            numberPath = getDefPathForNumber()
+        }
+        numberPath?.let {
+            mCanvas?.drawPath(it, mBorderPaint)
+            mCanvas?.clipPath(it)
+        }
         for (fp in paths) {
             mPaint.color = fp.color
             mPaint.strokeWidth = fp.strokeWidth.toFloat()
             mPaint.maskFilter = null
-            mPaint.xfermode = porterDuffXfermode
             mCanvas?.drawPath(fp.path, mPaint)
         }
         mBitmap?.let { bitmap ->
@@ -77,14 +97,15 @@ class ScratchView(context: Context?, attrs: AttributeSet?) : View(context, attrs
         return true
     }
 
-    fun init(metrics: DisplayMetrics) {
+    fun init(metrics: DisplayMetrics, number: Int, color: Int) {
+        this.number = number
+        currentColor = color
         val height = metrics.heightPixels
         val width = metrics.widthPixels
         mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         mBitmap?.let {
             mCanvas = Canvas(it)
         }
-        currentColor = DEFAULT_COLOR
         strokeWidth = BRUSH_SIZE
     }
 
@@ -101,21 +122,27 @@ class ScratchView(context: Context?, attrs: AttributeSet?) : View(context, attrs
     }
 
     private fun touchStart(x: Float, y: Float) {
-        mPath = Path()
-        mPath?.let { path ->
-            val fp = FingerPath(currentColor, emboss, blur, strokeWidth, path)
-            paths.add(fp)
-            mPath?.reset()
-            mPath?.moveTo(x, y)
+        if (region?.contains(x.toInt(), y.toInt()) == true) {
+            mPath = Path()
+            mPath?.let { path ->
+                val fp = FingerPath(currentColor, emboss, blur, strokeWidth, path)
+                paths.add(fp)
+                mPath?.reset()
+                mPath?.moveTo(x, y)
+            }
+            mX = x
+            mY = y
         }
-        mX = x
-        mY = y
     }
 
     private fun touchMove(x: Float, y: Float) {
         val dx = abs(x - mX)
         val dy = abs(y - mY)
-        if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
+        if ((dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) && region?.contains(
+                x.toInt(),
+                y.toInt()
+            ) == true
+        ) {
             mPath?.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2)
             mX = x
             mY = y
@@ -126,10 +153,45 @@ class ScratchView(context: Context?, attrs: AttributeSet?) : View(context, attrs
         mPath?.lineTo(mX, mY)
     }
 
+    private fun getDefPathForNumber(): Path {
+        val textPath = Path()
+        val paint = Paint(ANTI_ALIAS_FLAG)
+        paint.color = Color.RED
+        paint.textSize = 1000f
+        val textNumber = number.toString()
+
+        // center number
+        val bounds = Rect()
+        paint.getTextBounds(textNumber, 0, textNumber.length, bounds)
+        val x: Int = width / 2 - bounds.width() / 2
+        val y: Int = height / 2 - bounds.height() / 2
+
+        // get number path
+        paint.getTextPath(
+            textNumber,
+            0,
+            textNumber.length,
+            x.toFloat(),
+            y.toFloat() + paint.textSize / 2,
+            textPath
+        )
+        textPath.close()
+
+        val rectF = RectF()
+        textPath.computeBounds(rectF, true)
+        region = Region()
+        region?.setPath(
+            textPath,
+            Region(rectF.left.toInt(), rectF.top.toInt(), rectF.right.toInt(), rectF.bottom.toInt())
+        )
+
+        return textPath
+    }
+
     companion object {
-        var BRUSH_SIZE = 160
-        const val DEFAULT_COLOR: Int = Color.GRAY
-        const val DEFAULT_BG_COLOR: Int = Color.GRAY
+        var BRUSH_SIZE = 140
+        const val DEFAULT_COLOR: Int = Color.RED
+        const val DEFAULT_BG_COLOR: Int = Color.WHITE
         private const val TOUCH_TOLERANCE = 4f
     }
 }
