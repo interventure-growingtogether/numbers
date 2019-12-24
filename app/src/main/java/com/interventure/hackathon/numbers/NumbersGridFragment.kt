@@ -23,10 +23,6 @@ class NumbersGridFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var v = inflater.inflate(R.layout.grid_fragment, container, false)
-        for (view in choice_grid.iterator()) {
-            view.setOnClickListener(this)
-        }
         return inflater.inflate(R.layout.grid_fragment, container, false)
     }
 
@@ -34,6 +30,9 @@ class NumbersGridFragment : Fragment(), View.OnClickListener {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(NumbersGridViewModel::class.java)
         // TODO: Use the ViewModel
+        for (view in choice_grid.iterator()) {
+            view.setOnClickListener(this)
+        }
     }
 
     override fun onClick(v: View?) {
