@@ -4,5 +4,5 @@
     android:layout_height="match_parent"
     android:background="#f4ce46">
 
-    <include layout="@layout/view_number_two"/>
+    <include layout="@layout/view_number_four"/>
 </RelativeLayout>
