@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NumbersGridFragment">
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/choice_grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:padding="4dp"
+
+        app:alignmentMode="alignBounds"
+        app:columnCount="3"
+        app:rowOrderPreserved="false"
+        app:useDefaultMargins="true">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/numberText"
+            android:textColor="@color/colorOne"
+            android:text="1" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/numberText"
+            android:textColor="@color/colorTwo"
+            android:text="2" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/numberText"
+            android:textColor="@color/colorThree"
+            android:text="3" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/numberText"
+            android:textColor="@color/colorFour"
+            android:text="4" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/numberText"
+            android:textColor="@color/colorFive"
+            android:text="5" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/numberText"
+            android:textColor="@color/colorSix"
+            android:text="6" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/numberText"
+            android:textColor="@color/colorSeven"
+            android:text="7" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/numberText"
+            android:textColor="@color/colorEight"
+            android:text="8" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/numberText"
+            android:textColor="@color/colorNine"
+            android:text="9" />
+
+    </androidx.gridlayout.widget.GridLayout>
+
+</FrameLayout>
